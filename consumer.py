@@ -17,7 +17,7 @@ while True:
         continue
 
     try:
-        customer = stripe.Customer.create(
+        customer: stripe.Customer = stripe.Customer.create(
             id=message.get("id"), name=message.get("name"), email=message.get("email")
         )
     except Exception as e:
