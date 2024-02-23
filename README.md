@@ -53,3 +53,13 @@ curl -X POST "http://127.0.0.1:8000/api/v1/task/create/customer" -H "accept: app
 ```
 
 2. Alternatively, you can also [add a user on Stripe](https://dashboard.stripe.com/test/customers) directly. I'm using Stripe in testing mode.
+
+# Flow
+
+1. A post request to create a user is made
+2. This queues a task in the ZeroMQ queue
+3. The consumer listens to the queue and processes the task, creating the user on Stripe
+4. Post successful creation, Stripe sends an event to the webhook
+5. The created user is then stored in the PostgreSQL database
+
+![Flow](./assets/webflow.png)
