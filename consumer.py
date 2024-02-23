@@ -16,7 +16,9 @@ while True:
     if not set(["id", "name", "email"]).issubset(message.keys()):
         continue
 
-    customer = stripe.Customer.create(
-        id=message.get("id"), name=message.get("name"), email=message.get("email")
-    )
-    print(customer)
+    try:
+        customer = stripe.Customer.create(
+            id=message.get("id"), name=message.get("name"), email=message.get("email")
+        )
+    except Exception as e:
+        pass
