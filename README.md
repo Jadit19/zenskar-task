@@ -1,6 +1,6 @@
 # Zenskar Task
 
-[Link](https://zenskar.notion.site/Zenskar-Assignment-Back-End-Engineer-Intern-c2b28fa7ed0247008197c09d10ff8532) for the task
+See [PS.md](./PS.md) for the problem statement.
 
 ## Setup
 
@@ -54,7 +54,7 @@ curl -X POST "http://127.0.0.1:8000/api/v1/task/create/customer" -H "accept: app
 
 2. Alternatively, you can also [add a user on Stripe](https://dashboard.stripe.com/test/customers) directly. I'm using Stripe in testing mode.
 
-# Flow
+## Flow
 
 1. A post request to create a user is made
 2. This queues a task in the ZeroMQ queue
