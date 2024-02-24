@@ -2,6 +2,17 @@
 
 See [PS.md](./PS.md) for the problem statement.
 
+## Tech Stack
+
+- Containerization: Docker
+- Database: PostgreSQL (containerized)
+- Backend: FastAPI (python)
+- Queuing: ZeroMQ
+- Webhook: Stripe
+- TCP tunneling: ngrok
+- Formatting: black
+- Environment variables: python-dotenv
+
 ## Setup
 
 0. Make sure you have docker and python (virtualenv) installed
