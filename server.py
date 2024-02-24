@@ -23,8 +23,9 @@ sql_connection = psycopg2.connect(**db_config)
 
 # ZeroMQ
 context: zmq.Context = zmq.Context()
-zmq_socket = context.socket(zmq.PUSH)
-zmq_socket.connect("tcp://localhost:5555")
+zmq_stripe_socket = context.socket(zmq.PUB)
+zmq_stripe_socket.connect("tcp://localhost:5555")
+ZMQ_STRIPE_TOPIC = "ZMQ_STRIPE"
 
 # FastAPI
 app: fastapi.FastAPI = fastapi.FastAPI()
@@ -47,7 +48,8 @@ class CreateUserTaskRequest(pydantic.BaseModel):
 async def outward_sync(user: CreateUserTaskRequest):
     if not user.id or not user.name or not user.email:
         raise fastapi.HTTPException(status_code=400, detail="Invalid payload")
-    zmq_socket.send_json(user.model_dump())
+    zmq_stripe_socket.send_string(ZMQ_STRIPE_TOPIC, zmq.SNDMORE)
+    zmq_stripe_socket.send_json(user.model_dump())
     return "OK", 200
 
 
