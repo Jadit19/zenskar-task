@@ -63,3 +63,17 @@ curl -X POST "http://127.0.0.1:8000/api/v1/task/create/customer" -H "accept: app
 5. The created user is then stored in the PostgreSQL database
 
 ![Flow](./assets/webflow.png)
+
+## Plan for integrating Salesforce
+
+Similar to Stripe, a FastAPI endpoint (`/api/v1/task/create/invoice`) can be added for queuing the tasks for Salesforce as well, on its separate topic of course. The consumer can then listen to both the topics (operating on the same port) and process the tasks accordingly.
+
+For more optimal performance, the consumer can be split into two separate consumers, each listening to their respective topics i.e. Stripe and Salesforce. This way, the consumer can be scaled horizontally as well.
+
+Furthermore, the consumer listening logic can be abstracted into a separate module, which can be imported by the consumers for listening to the topics. This way, the consumer can be extended to listen to more topics in the future.
+
+## Plan for integrating invoice catalogue
+
+In the same way as the user data from Stripe's webhook callback is being stored, another table can be added to the PostgreSQL database for the invoice catalogue.
+
+In the invoice catalogue, a column can be added, containing the customer id of the person in whose name the invoice is made, thus creating a relationship between the two tables.
