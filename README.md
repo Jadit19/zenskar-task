@@ -55,7 +55,7 @@ ngrok http 8000
 
 ## Operations
 
-0. Make sure the server is running by sending a post request to `http://localhost:8000/api/v1/health`
+0. Make sure the server is running by sending a GET request to `http://localhost:8000/api/v1/health`
 
 1. Send a POST request to `http://localhost:8000/api/v1/task/create/customer`. A sample cURL command for the same is:
 
